@@ -30,7 +30,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1, duration: 0.4, ease: "easeOut" }}
+          transition={{ delay: 1, duration: 0.3, ease: "easeOut" }}
           className="w-full h-full py-8 md:py-12 px-8 md:px-[5rem]"
         >
           <h1 className="font-roboto text-4xl md:text-5xl text-[#555555] leading-tight md:leading-snug mb-4">
