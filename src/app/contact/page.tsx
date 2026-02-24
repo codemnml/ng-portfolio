@@ -40,7 +40,7 @@ export default function ContactPage() {
                     {/* Social Links */}
                     <p
                         className="text-[1.2rem] tracking-[0.125rem] text-[#F4F4F4] mt-2 cursor-pointer hover:text-[#FFFFFF] group flex items-center gap-3 transition-colors"
-                        onClick={() => window.open('https://github.com/micustudio', '_blank')}
+                        onClick={() => window.open('https://github.com/codemnml', '_blank')}
                     >
                         <span>check out my work on github</span>
                         {/* eslint-disable-next-line @next/next/no-img-element */}

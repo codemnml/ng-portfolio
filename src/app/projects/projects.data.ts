@@ -35,7 +35,7 @@ const projects: Project[] = [
     {
         name: 'indeed-me',
         description: "A side-project to quickly get relevant data in a tabular format from indeed's website.",
-        link: 'https://github.com/micustudio/indeed-me',
+        link: 'https://github.com/codemnml/indeed-me',
         imgUrl: 'https://s1.postimg.org/f29uzcdb3/ngportfolio_logo_favicon_ngportfolio.png',
         technologies: ['Angular', 'Express', 'Node.js', 'Bootstrap', 'HTML', 'CSS', 'Javascript'],
         apis: ['Indeed Api']
@@ -43,7 +43,7 @@ const projects: Project[] = [
     {
         name: 'travel-site',
         description: 'A flexible and customizable single page (brochure) site built with modern developer skills, tools, and best practices.',
-        link: 'https://micustudio.github.io/travel-site/#',
+        link: 'https://codemnml.github.io/travel-site/#',
         imgUrl: 'https://s2.postimg.org/rznwg2czd/Screen_Shot_2017-08-08_at_1.32.15_PM.png',
         technologies: ['HTML', 'CSS', 'Javascript', 'jQuery', 'Gulp', 'PostCSS', 'BEM Philosophy', 'Webpack'],
         apis: []
