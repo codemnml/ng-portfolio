@@ -3,13 +3,34 @@
 import { useState } from "react";
 
 export default function ContactPage() {
-    const [emailStatus, setEmailStatus] = useState<"idle" | "success">("idle");
+    const [emailStatus, setEmailStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Simulate legacy angular submission flash message
-        setEmailStatus("success");
-        setTimeout(() => setEmailStatus("idle"), 4000);
+        setEmailStatus("submitting");
+
+        try {
+            const form = e.currentTarget;
+            const response = await fetch("https://formspree.io/f/xaqdlzjb", {
+                method: "POST",
+                body: new FormData(form),
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            if (response.ok) {
+                setEmailStatus("success");
+                form.reset();
+                setTimeout(() => setEmailStatus("idle"), 4000);
+            } else {
+                setEmailStatus("error");
+                setTimeout(() => setEmailStatus("idle"), 4000);
+            }
+        } catch (error) {
+            setEmailStatus("error");
+            setTimeout(() => setEmailStatus("idle"), 4000);
+        }
     };
 
     return (
@@ -64,37 +85,50 @@ export default function ContactPage() {
                         </div>
                     )}
 
+                    {emailStatus === "error" && (
+                        <div className="bg-[#e74c3c] text-[#F4F4F4] italic px-2 py-1 mb-2">
+                            Oops! There was a problem submitting your form.
+                        </div>
+                    )}
+
                     <form onSubmit={handleSubmit} className="mb-6 mt-4 flex flex-col gap-4">
                         <div className="form-group">
                             <input
                                 required
+                                name="name"
                                 placeholder="name"
                                 type="text"
-                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400"
+                                disabled={emailStatus === "submitting"}
+                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400 disabled:opacity-75"
                             />
                         </div>
                         <div className="form-group">
                             <input
                                 required
+                                name="email"
                                 placeholder="email"
                                 type="email"
-                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400"
+                                disabled={emailStatus === "submitting"}
+                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400 disabled:opacity-75"
                             />
                         </div>
                         <div className="form-group">
                             <textarea
                                 required
+                                name="message"
                                 cols={40}
                                 rows={7}
                                 placeholder="message"
-                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400 resize-y"
+                                disabled={emailStatus === "submitting"}
+                                className="w-full px-4 py-3 bg-white text-gray-800 border-none rounded focus:outline-none focus:ring-2 focus:ring-[#0275d8] font-sans shadow-sm placeholder-gray-400 resize-y disabled:opacity-75"
                             ></textarea>
                         </div>
                         <button
                             className="bg-[#0275d8] hover:bg-[#025aa5] text-white py-2 px-6 rounded transition-colors self-start shadow-sm font-sans cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                             type="submit"
+                            disabled={emailStatus === "submitting"}
                         >
-                            Go
+                            {emailStatus === "submitting" ? "Sending..." : "Go"}
                         </button>
                     </form>
                 </div>
